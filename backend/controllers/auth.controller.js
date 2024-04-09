@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 export const signup = async (req, res) => {
   try {
-    const { fullName, userName, password, confirmPassword, gender } = req.body;
+    const { fullName, username:userName, password, confirmPassword, gender } = req.body;
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "password not match" });
     }
@@ -44,7 +44,7 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { userName, password } = req.body;
+    const { username:userName, password } = req.body;
     const user = await User.findOne({ userName });
     const isCorrectPassword = await bcrypt.compare(password, user?.password||"" );
 

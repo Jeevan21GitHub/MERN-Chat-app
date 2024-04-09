@@ -33,7 +33,7 @@ export const sendMessage = async (req, res) => {
 
     res.status(201).json(newMessage);
   } catch (err) {
-    console.log("Error sendMessage Controller", err.message);
+    console.log("Error sendMessage Controller", err);
     res.status(400).json({ error: "Internal Server Error" });
   }
 };
@@ -46,12 +46,12 @@ export const getMessage = async (req, res) => {
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] },
     }).populate("messages");
-
+    // If not any conversation between them return empty Array value, so don't need to run remaining code.So "return" is important
     if(!conversation){
-        res.status(200).json([])
+      return res.status(200).json([])
     }
 
-    const messages=conversation.messages
+    const messages=conversation.messages||[]
 
     res.status(200).json(messages)
   } catch (err) {

@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const [username,setUserName]=useState("")
+  const [password,setPassword]=useState("")
+
+  const {loading,login}=useLogin()
+
+  const onHandleSubmit= async(e)=>{
+    e.preventDefault();
+    await login(username,password)
+  }
   return (
     <section className="flex justify-center items-center h-[100vh]">
-      <div className="bg-purple-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-purple-100 p-20 flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center justify-center p-20 bg-purple-400 border border-purple-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
         <div className="pb-6">
-          <h3 className="font-bold text-3xl">
+          <h3 className="text-3xl font-bold">
             Login <span className="text-purple-900">Chatapp</span>
           </h3>
         </div>
         <div>
-          <form>
+          <form onSubmit={onHandleSubmit}>
             <div className="pb-4">
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="flex items-center gap-2 input input-bordered">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -21,11 +32,11 @@ const Login = () => {
                 >
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                 </svg>
-                <input type="text" className="grow" placeholder="Username" />
+                <input type="text" className="grow" placeholder="Username" onChange={(e)=>setUserName(e.target.value)} />
               </label>
             </div>
             <div className="pb-3">
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="flex items-center gap-2 input input-bordered">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -42,6 +53,7 @@ const Login = () => {
                   type="password"
                   className="grow"
                   placeholder="Password"
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
               </label>
             </div>
@@ -49,15 +61,18 @@ const Login = () => {
             <div className="flex justify-center pb-1">
               <button
                 type="submit"
-                className="btn hover:bg-purple-500 bg-purple-700 text-purple-100 w-full"
+                className="w-full text-purple-100 bg-purple-700 btn hover:bg-purple-500"
+                
               >
-                Login
+                {
+                  loading?<span className="loading loading-spinner"></span>:"Login"
+                }
               </button>
             </div>
             <div className="">
               <span className="text-sm">
                 {"Don't"} have an account?
-                <span className="text-purple-900">Create</span>
+                <Link to={"/signup"}><span className="text-purple-900">Create</span></Link>
               </span>
             </div>
           </form>

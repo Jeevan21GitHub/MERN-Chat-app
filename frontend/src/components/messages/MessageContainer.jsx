@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Messages from "../messages/Messages";
 import MessageInput from "./MessageInput";
+import useConversation from "../../zustand/useConversation";
 
 const MessageContainer = () => {
-  const noChatSelected = true;
+  const {selectedConversation,setSelectedConversation}=useConversation()
+
+  useEffect(()=>{
+    // cleaning selectedConversation (unmount)
+    return ()=>setSelectedConversation(null)
+  },[setSelectedConversation])
   return (
     <section className="overflow-hidden h-[100vh] bg-purple-200">
-      {noChatSelected ? (
+      {selectedConversation ? (
         <div>
           <div className="py-5 bg-purple-500">
             <p className="ml-5 text-2xl font-semibold text-purple-100">
-              To:<span className="ml-2 ">Jeevan</span>
+              To:<span className="ml-2 ">{selectedConversation.userName}</span>
             </p>
           </div>
           <div className=" overflow-auto scrollbar-hide h-[80vh]">
