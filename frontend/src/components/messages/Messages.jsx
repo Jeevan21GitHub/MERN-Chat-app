@@ -14,7 +14,7 @@ const Messages = () => {
     },100) 
   },[messages])
   return (
-    <div className='px-32 mt-2'>
+    <div className='px-2 md:px-32 mt-2'>
       {
         messages&&messages.length>0&&messages.map((message)=>(
           <div key={message._id} ref={lastMessageRef}>

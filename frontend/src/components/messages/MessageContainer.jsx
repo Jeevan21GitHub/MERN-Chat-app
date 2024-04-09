@@ -16,8 +16,8 @@ const MessageContainer = () => {
       {selectedConversation ? (
         <div>
           <div className="py-5 bg-purple-500">
-            <p className="ml-5 text-2xl font-semibold text-purple-100">
-              To:<span className="ml-2 ">{selectedConversation.userName}</span>
+            <p className="ml-5 text-xl md:text-2xl font-semibold text-purple-100 flex items-center">
+             <span className=""><img src={selectedConversation.profilePic} alt="ProfilePic" className="h-10 md:h-14" /></span><span className="ml-2 ">{selectedConversation.userName}</span>
             </p>
           </div>
           <div className=" overflow-auto scrollbar-hide h-[80vh]">
@@ -41,7 +41,7 @@ const NoChatSelected = () => {
   return (
     <section className="bg-purple-200">
       <div className="flex justify-center h-[100vh]">
-        <p className="my-auto text-4xl font-bold text-purple-950">Welcome {authUser.userName} 🖖 Select a chat to start messaging</p>
+        <p className="my-auto px-3  md:text-4xl font-bold text-purple-950">Welcome {authUser.userName} 🖖 Select a chat to start messaging</p>
       </div>
     </section>
   );
