@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import Messages from "../messages/Messages";
 import MessageInput from "./MessageInput";
 import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
 
 const MessageContainer = () => {
   const {selectedConversation,setSelectedConversation}=useConversation()
-
+  
   useEffect(()=>{
     // cleaning selectedConversation (unmount)
     return ()=>setSelectedConversation(null)
@@ -36,10 +37,11 @@ const MessageContainer = () => {
 };
 
 const NoChatSelected = () => {
+  const {authUser}=useAuthContext()
   return (
     <section className="bg-purple-200">
       <div className="flex justify-center h-[100vh]">
-        <p className="my-auto text-4xl font-bold text-purple-950">Welcome Zoe Jones 🖖 Select a chat to start messaging</p>
+        <p className="my-auto text-4xl font-bold text-purple-950">Welcome {authUser.userName} 🖖 Select a chat to start messaging</p>
       </div>
     </section>
   );
